@@ -9,7 +9,7 @@ import { fetchImages } from './services/posts-api';
 class SearchImages extends Component {
   state = {
     items: [],
-    search: '',
+    search: "",
     loading: false,
     error: null,
     page: 1,
@@ -23,8 +23,6 @@ class SearchImages extends Component {
     }
   }
 
-  
-
   async fetchImages() {
     try {
       this.setState({ loading: true });
@@ -35,7 +33,7 @@ class SearchImages extends Component {
         total: totalHits,
       }));
     } catch (error) {
-      this.setState({ error: error.errorMessage });
+      this.setState({ error: error.message });
     } finally {
       this.setState({ loading: false });
     }
