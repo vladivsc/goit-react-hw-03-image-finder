@@ -3,8 +3,12 @@ import { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
+import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
 
 import { fetchImages } from './services/posts-api';
+
+import styles from './search-images.module.scss'
 
 class SearchImages extends Component {
   state = {
@@ -13,7 +17,9 @@ class SearchImages extends Component {
     loading: false,
     error: null,
     page: 1,
-    total: 0
+    total: 0,
+    showModal: false,
+    imgDetails: null
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,22 +53,43 @@ class SearchImages extends Component {
     this.setState(({ page }) => ({ page: page + 1 }));
   };
 
+  openModal = ( largeImageURL, tags ) => {
+    this.setState({
+      showModal: true,
+      imgDetails: { largeImageURL, tags, }
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      showModal: false,
+      imgDetails: null,
+    });
+  };
+
   render() {
-    const { items, page, total } = this.state;
-    const { searchImages, loadMore } = this;
+    const { items, page, total, loading, error, showModal, imgDetails } = this.state;
+    const { searchImages, loadMore, openModal, closeModal } = this;
     const isImages = Boolean(items.length);
     const totalPage = Math.ceil(total / 12);
 
     return (
       <>
         <Searchbar onSubmit={searchImages} />
-        <ImageGallery items={items} />
+        <ImageGallery items={items} onClick={openModal} />
+        {loading && <Loader />}
+        {error && <p className={styles.errorMessage}>{error}</p>}
         {isImages && page < totalPage && (
           <Button onLoadMore={loadMore} text={'Load more'} />
+        )}
+        {showModal && (
+          <Modal close={closeModal}>
+            <img src={imgDetails.largeImageURL} alt={imgDetails.tags} />
+          </Modal>
         )}
       </>
     );
   }
-}
+} 
 
 export default SearchImages;
