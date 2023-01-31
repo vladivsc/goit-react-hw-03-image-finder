@@ -13,6 +13,7 @@
     "react-dom": "^18.1.0",
     "react-icons": "^4.7.1",
     "react-loader-spinner": "^5.3.4",
+    "react-notifications": "^1.7.4",
     "react-scripts": "5.0.1",
     "saas": "^1.0.0",
     "sass": "^1.57.1",

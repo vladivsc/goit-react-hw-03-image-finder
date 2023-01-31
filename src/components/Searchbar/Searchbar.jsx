@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import NotificationManager from 'react-notifications/lib/NotificationManager';
+
 
 import styles from '../Searchbar/searchbar.module.scss';
 
@@ -15,6 +17,10 @@ class Searchbar extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
+    const {search} = this.state;
+    if (search.trim() === "") {
+      return NotificationManager.warning('Enter correct search!');
+    }
     const {onSubmit} = this.props;
     onSubmit({...this.state});
     this.reset();
@@ -46,7 +52,7 @@ class Searchbar extends Component {
             autoComplete='off'
             autoFocus
             placeholder="Search images and photos"
-            required
+            // required
           />
         </form>
       </header>

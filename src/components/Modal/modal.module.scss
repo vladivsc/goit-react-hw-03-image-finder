@@ -18,17 +18,3 @@
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
 }
-
-.close {
-  position: absolute;
-  top:5px;
-  right: 5px ;
-  cursor: pointer;
-  border-radius: 5px;
-  border-color: transparent;
-  padding: 5px;
-
-  &:hover, &:focus {
-    background-color: rgba(51, 202, 202, 0.808);
-  }
-}
