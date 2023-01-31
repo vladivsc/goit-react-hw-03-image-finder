@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Notiflix from 'notiflix';
 
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -7,8 +8,6 @@ import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
 
 import { fetchImages } from './services/posts-api';
-
-import styles from './search-images.module.scss'
 
 class SearchImages extends Component {
   state = {
@@ -77,11 +76,15 @@ class SearchImages extends Component {
       <>
         <Searchbar onSubmit={searchImages} />
         <ImageGallery items={items} onClick={openModal} />
+
         {loading && <Loader />}
-        {error && <p className={styles.errorMessage}>{error}</p>}
+
+        {error && Notiflix.Notify.failure('Something has gone wrong :(')}
+
         {isImages && page < totalPage && (
           <Button onLoadMore={loadMore} text={'Load more'} />
         )}
+
         {showModal && (
           <Modal close={closeModal}>
             <img src={imgDetails.largeImageURL} alt={imgDetails.tags} />

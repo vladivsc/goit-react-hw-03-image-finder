@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 import styles from '../ImageGallery/image-gallery.module.scss'
@@ -23,3 +25,7 @@ export default ImageGallery;
 ImageGallery.defaultProps = {
   items: [],
 };
+
+ImageGallery.propTypes = {
+  onClick: PropTypes.func.isRequired
+}

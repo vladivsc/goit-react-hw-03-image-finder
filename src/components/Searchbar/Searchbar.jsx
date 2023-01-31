@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import NotificationManager from 'react-notifications/lib/NotificationManager';
-
+import Notiflix from 'notiflix';
 
 import styles from '../Searchbar/searchbar.module.scss';
 
@@ -17,9 +16,10 @@ class Searchbar extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
+
     const {search} = this.state;
     if (search.trim() === "") {
-      return NotificationManager.warning('Enter correct search!');
+      return Notiflix.Notify.warning('Enter correct search!');
     }
     const {onSubmit} = this.props;
     onSubmit({...this.state});
