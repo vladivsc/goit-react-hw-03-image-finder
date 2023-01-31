@@ -22,7 +22,7 @@ class SearchImages extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { search, page, items } = this.state;
+    const { search, page } = this.state;
     if (prevState.search !== search || prevState.page !== page) {
       this.fetchImages();
     }
