@@ -22,9 +22,12 @@ class SearchImages extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { search, page } = this.state;
+    const { search, page, items } = this.state;
     if (prevState.search !== search || prevState.page !== page) {
       this.fetchImages();
+    }
+    if(prevState.items.length === items.length) {
+      Notiflix.Notify.warning('Nothing found :(')
     }
   }
 
@@ -76,7 +79,7 @@ class SearchImages extends Component {
       <>
         <Searchbar onSubmit={searchImages} />
         <ImageGallery items={items} onClick={openModal} />
-
+        
         {loading && <Loader />}
 
         {error && Notiflix.Notify.failure('Something has gone wrong :(')}
