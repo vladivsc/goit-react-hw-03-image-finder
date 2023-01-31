@@ -26,9 +26,6 @@ class SearchImages extends Component {
     if (prevState.search !== search || prevState.page !== page) {
       this.fetchImages();
     }
-    if(prevState.items.length === items.length) {
-      Notiflix.Notify.warning('Nothing found :(')
-    }
   }
 
   async fetchImages() {
@@ -36,6 +33,9 @@ class SearchImages extends Component {
       this.setState({ loading: true });
       const { search, page } = this.state;
       const { hits, totalHits } = await fetchImages(search, page);
+      if (hits.length === 0) {
+        Notiflix.Notify.warning('No result found!');
+      }
       this.setState(({ items }) => ({
         items: [...items, ...hits],
         total: totalHits,
